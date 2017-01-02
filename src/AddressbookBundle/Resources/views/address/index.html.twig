@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if person.addresses|length > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>City</th>
+                <th>Street</th>
+                <th>House</th>
+                <th>Flat</th>
+                {% if editable %}
+                    <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for address in person.addresses %}
+            <tr>
+                <td>{{ address.city }}</td>
+                <td>{{ address.street }}</td>
+                <td>{{ address.house }}</td>
+                <td>{{ address.flat }}</td>
+                {% if editable %}
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('address_edit', { 'id': address.id }) }}">edit</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('address_delete', { 'id': address.id }) }}">delete</a>
+                        </li>
+                    </ul>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% if editable %}
+    <ul>
+        <li>
+            <a href="{{ path('address_new', { 'p_id' : person.id }) }}">Add an address</a>
+        </li>
+    </ul>
+    {% endif %}
+{% endblock %}

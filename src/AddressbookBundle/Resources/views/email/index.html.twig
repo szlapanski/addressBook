@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if person.emails|length > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Type</th>
+                {% if editable %}
+                    <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for email in person.emails %}
+            <tr>
+                <td>{{ email.email }}</td>
+                <td>{{ email.type }}</td>
+                {% if editable %}
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('email_edit', { 'id': email.id }) }}">edit</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('email_delete', { 'id': email.id }) }}">delete</a>
+                        </li>
+                    </ul>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% if editable %}
+    <ul>
+        <li>
+            <a href="{{ path('email_new', { 'p_id' : person.id}) }}">Add an email</a>
+        </li>
+    </ul>
+    {% endif %}
+{% endblock %}

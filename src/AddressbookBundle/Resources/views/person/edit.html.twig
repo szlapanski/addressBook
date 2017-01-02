@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Person edit</h1>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+
+<table style="width:100%">
+    <tr>
+        <td>
+            {%  include 'AddressbookBundle:email:index.html.twig' with {"person": person} %}
+        </td>
+        <td>
+            {%  include 'AddressbookBundle:phone:index.html.twig' with {"person": person} %}
+        </td>
+        <td>
+            {%  include 'AddressbookBundle:address:index.html.twig' with {"person": person} %}
+        </td>
+    </tr>
+</table>
+    <input type="submit" value="Edit person" />
+    {{ form_end(edit_form) }}
+
+    <ul>
+
+        <li>
+            <a href="{{ path('_show', { 'id': person.id }) }}">finish editing</a>
+        </li>
+        <li>
+            <a href="{{ path('_delete', { 'id': person.id }) }}">delete</a>
+        </li>
+    </ul>
+{% endblock %}

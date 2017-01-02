@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if person.phones|length > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Type</th>
+                {% if editable %}
+                <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for phone in person.phones %}
+            <tr>
+                <td>{{ phone.number }}</td>
+                <td>{{ phone.type }}</td>
+                {% if editable %}
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('phone_edit', { 'id': phone.id }) }}">edit</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('phone_delete', { 'id': phone.id }) }}">delete</a>
+                        </li>
+                    </ul>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+    {% if editable %}
+    <ul>
+        <li>
+            <a href="{{ path('phone_new', {'p_id':person.id}) }}">Add a phone</a>
+        </li>
+    </ul>
+    {% endif %}
+{% endblock %}
